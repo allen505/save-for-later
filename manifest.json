@@ -9,13 +9,12 @@
 		"48": "icons/main.png"
 	},
 
-	"permissions": ["tabs", "activeTab"],
+	"permissions": ["tabs", "activeTab", "storage"],
 
 	"browser_action": {
 		"default_icon": "icons/main.png",
 		"default_title": "Save for later",
 		"default_popup": "popup/main.html",
-		"browser_style": true 
+		"browser_style": true
 	}
-
 }

@@ -1,3 +1,5 @@
+import * as warehouse from "./warehouse.js";
+
 let setupAccordion = () => {
 	// setupAccordion() helps initialize all the Accordions in the  HTML document. Must be called every time
 	// a new accordion is made
@@ -44,49 +46,14 @@ function listenForClicks() {
 				// getCurrentWindowTabs() is defined below and helps access the tabs which
 				// are present in the given window
 
+				tabsList.textContent = "";
 				// createList() is called to generate the code for Accordion
-				createList(tabs);
+				currentTabs = warehouse.createList(tabs);
 				tabsList.appendChild(currentTabs);
 				setupAccordion();
 				// currentTabs is updated by the createList() and setupAccordion is called
 				// to initialize the newly added Accordion
 			});
-
-			function createList(tabs) {
-				// createList() is used to create the Accordion which will be added to the
-				// pop-up. It updates the currentTabs variable to store the newly created
-				// Accordion.
-				tabsList.textContent = "";
-
-				//Create the accordion button and set the values of the button
-				let accButton = document.createElement("button");
-				accButton.textContent = Date.now();
-				accButton.setAttribute("class", "accordion");
-				let panelDiv = document.createElement("div");
-				panelDiv.setAttribute("class", "panel");
-				let pattern = /^(http|https|file):\/\//;
-				// The pattern helps catch only http/https/file links excluding any about/ftp/ws/wss links
-
-				// The for loop is run to go through each tab present in the current window
-				for (let tab of tabs) {
-					if (tab.url.match(pattern) != null) {
-						//Create the li tag into which the link is inserted
-						let listItem = document.createElement("li");
-
-						//Create a link for each tab which is saved and set its respective parameters
-						let tabLink = document.createElement("a");
-						tabLink.textContent = tab.title || tab.url;
-						tabLink.setAttribute("href", tab.url);
-
-						listItem.appendChild(tabLink);
-						panelDiv.appendChild(listItem);
-					}
-					
-				}
-				console.log(accButton);
-				currentTabs.appendChild(accButton);
-				currentTabs.appendChild(panelDiv);
-			}
 
 			function getCurrentWindowTabs() {
 				return browser.tabs.query(conditions);
@@ -95,6 +62,7 @@ function listenForClicks() {
 
 		function reset() {
 			console.log("reset is called!!");
+			browser.storage.local.clear();
 		}
 
 		function reportError(error) {
@@ -113,12 +81,6 @@ function listenForClicks() {
 				.catch(reportError);
 		}
 	});
-}
-
-function reportExecuteScriptError(error) {
-	document.querySelector("#popup-content").classList.add("hidden");
-	document.querySelector("#error-content").classList.remove("hidden");
-	console.error(`Failed to execute save content script: ${error.message}`);
 }
 
 document.addEventListener("DOMContentLoaded", listenForClicks);
