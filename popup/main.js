@@ -23,9 +23,23 @@ let setupAccordion = () => {
 	}
 };
 
+function updater() {
+	warehouse.updateHandler().then(data => {
+		let tabsList = document.getElementById("saved-list");
+		if (data === undefined) {
+			tabsList.innerHTML="";
+		}
+		else{
+			tabsList.appendChild(data);
+			setupAccordion();
+		}
+		
+	});
+}
+
 function listenForClicks() {
 	// The listenForClicks() is called as soon as HTML page is loaded
-	setupAccordion();
+	updater();
 
 	// Adding an eventListener so that whenever a click is registered within the pop-up,
 	// the respective condition is called using the if statements written at the end
@@ -36,7 +50,7 @@ function listenForClicks() {
 			// saveIt() adds a new Accordion to the pop-up
 			var conditions = { currentWindow: true };
 			let tabsList = document.getElementById("saved-list");
-			let currentTabs = document.createDocumentFragment();
+
 			// conditions is used by the getCurrentWindowTabs() to access tabs only
 			// in the current window
 			// tabsList is used to access the div in which the Accordion is to be added
@@ -48,9 +62,11 @@ function listenForClicks() {
 
 				tabsList.textContent = "";
 				// createList() is called to generate the code for Accordion
-				currentTabs = warehouse.createList(tabs);
-				tabsList.appendChild(currentTabs);
-				setupAccordion();
+				warehouse.saveHandler(tabs).then(data => {
+					tabsList.appendChild(data);
+					setupAccordion();
+				});
+
 				// currentTabs is updated by the createList() and setupAccordion is called
 				// to initialize the newly added Accordion
 			});
@@ -63,6 +79,7 @@ function listenForClicks() {
 		function reset() {
 			console.log("reset is called!!");
 			browser.storage.local.clear();
+			updater();
 		}
 
 		function reportError(error) {
