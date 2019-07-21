@@ -27,13 +27,11 @@ function updater() {
 	warehouse.updateHandler().then(data => {
 		let tabsList = document.getElementById("saved-list");
 		if (data === undefined) {
-			tabsList.innerHTML="";
-		}
-		else{
+			tabsList.innerHTML = "";
+		} else {
 			tabsList.appendChild(data);
 			setupAccordion();
 		}
-		
 	});
 }
 
