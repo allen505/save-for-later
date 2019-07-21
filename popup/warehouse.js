@@ -106,6 +106,8 @@ function retrieveIt() {
 }
 
 export async function saveHandler(tabs) {
+	// Handles all the function calls related to saving a session
+	
 	let returnPromise = new Promise((resolve, reject) => {
 		console.log("savehandler is running");
 		storeIt(tabs)
@@ -125,6 +127,9 @@ export async function saveHandler(tabs) {
 }
 
 export async function updateHandler() {
+	// updateHandler syncs the data in storage.local with data displayed
+	// in the popup
+
 	let returnPromise = new Promise((resolve, reject) => {
 		retrieveIt()
 			.then(obj => {
