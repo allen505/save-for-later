@@ -1,19 +1,22 @@
 import * as warehouse from "./warehouse.js";
+let prevSession = {};
 
 let setupAccordion = () => {
 	// setupAccordion() helps initialize all the Accordions in the  HTML document. Must be called every time
 	// a new accordion is made
-	var acc = document.getElementsByClassName("accordion");
-	var i;
+	let acc = document.getElementsByClassName("accExpand");
+	let i;
 	// This for-loop is setup so that it runs for all the accordion class nodes found in the HTML document
 	for (i = 0; i < acc.length; i++) {
+		let parent = acc[i].parentElement;
+
 		acc[i].addEventListener("click", function() {
 			// Toggle between adding and removing the "active" class,
 			// to highlight the button that controls the panel
 			this.classList.toggle("active");
-
 			// Toggle between hiding and showing the active panel
-			var panel = this.nextElementSibling;
+			var panel = parent.nextElementSibling;
+
 			if (panel.style.display === "block") {
 				panel.style.display = "none";
 			} else {
@@ -21,14 +24,25 @@ let setupAccordion = () => {
 			}
 		});
 	}
+
+	let accDel = document.getElementsByClassName("accDelete");
+	for (i = 0; i < accDel.length; i++) {
+		let parent = accDel[i].parentElement;
+		accDel[i].addEventListener("click", () => {
+			let delElement = parent.getAttribute("id");
+			warehouse.deleteHandler(delElement).then(() => {
+				updater();
+			});
+		});
+	}
 };
 
 function updater() {
 	warehouse.updateHandler().then(data => {
 		let tabsList = document.getElementById("saved-list");
-		if (data === undefined) {
-			tabsList.innerHTML = "";
-		} else {
+
+		tabsList.innerHTML = "";
+		if (data != undefined) {
 			tabsList.appendChild(data);
 			setupAccordion();
 		}
@@ -75,13 +89,13 @@ function listenForClicks() {
 		}
 
 		function reset() {
-			console.log("reset is called!!");
+			console.log("Reseted");
 			browser.storage.local.clear();
-			updater();
+			document.getElementById("saved-list").innerHTML = "";
 		}
 
 		function reportError(error) {
-			console.error(`Could not saveIt: ${error}`);
+			console.error(`An error occured: ${error}`);
 		}
 
 		if (e.target.classList.contains("save")) {
