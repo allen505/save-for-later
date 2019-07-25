@@ -1,12 +1,14 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
+		<link rel="stylesheet" href="./bootstrap.min.css" />
 		<link rel="stylesheet" href="main.css" />
+		
 	</head>
 	<body>
 		<div id="popup-content">
-			<div class="button save">Save this window</div>
-			<div class="button reset">Reset</div>
+			<button class="btn btn-outline-success button save">Save this window</button>
+			<button class="btn btn-danger button reset">Reset</button>
 		</div>
 
 		<div id="error-content" class="hidden">
@@ -14,9 +16,7 @@
 			<p>Try a different page.</p>
 		</div>
 
-		<div id="saved-content">
-			<p id="saved-list"></p>
-		</div>
+		<div id="saved-content"></div>
 
 		<script type="module" src="main.js"></script>
 	</body>

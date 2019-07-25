@@ -2,6 +2,7 @@ html,
 body {
 	width: 400px;
 	height: 350px;
+	padding: 2px;
 }
 
 .hidden {
@@ -9,27 +10,35 @@ body {
 }
 
 .button {
-	margin: 3% auto;
-	padding: 4px;
+	margin: 2.5% auto;
+	padding: 2px;
 	text-align: center;
 	font-size: 1.5em;
 	cursor: pointer;
 }
 
+.save,
 .reset {
-	background-color: #fbfbc9;
+	width: 85%;
+}
+#popup-content{
+	text-align: center;
+}
+#saved-content{
+	padding: 3px;
+	width: 99%;
+	text-align: center;
+	/* background-color: rgb(209, 0, 0); */
 }
 
-.reset:hover {
-	background-color: #eaea9d;
+.accDelete{
+	float: right;
 }
 
-/* Style the buttons that are used to open and close the accordion panel */
 .accDiv {
 	background-color: #eee;
 	color: #444;
-	cursor: pointer;
-	padding: 18px;
+	padding: 10px 3px;
 	width: 100%;
 	text-align: left;
 	border: none;
@@ -38,15 +47,20 @@ body {
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active,
 .accDiv:hover {
 	background-color: #ccc;
 }
 
+.icon{
+	width: 27px;
+	height: 27px;
+}
+
 /* Style the accordion panel. Note: hidden by default */
 .panel {
-	padding: 0 18px;
+	padding: 7px 18px;
 	background-color: white;
 	display: none;
 	overflow: hidden;
+	/* background-color: rgb(209, 0, 0); */
 }

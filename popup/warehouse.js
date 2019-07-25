@@ -20,24 +20,37 @@ function createList(storeObj) {
 
 	// id will be the unique identifier of each element in the stored Array
 	let currentTabs = document.createDocumentFragment();
-
+	let idArray = new Array();
 	for (let id in storeObj) {
+		idArray.unshift(id);
+	}
+
+	idArray.forEach(id => {
 		if (storeObj.hasOwnProperty(id)) {
 			// Create the accordion button and set the values of the button
 			let obj = storeObj[id];
 
 			let accDiv = document.createElement("div");
 			let accButton = document.createElement("button");
+			let expandImg = document.createElement("img");
 			let accExpand = document.createElement("button");
+			let delImg = document.createElement("img");
 			let accDelete = document.createElement("button");
 
 			accButton.textContent = obj.id;
+			accButton.setAttribute("class", "btn btn-link accButton");
 
-			accExpand.textContent = "Expand";
-			accExpand.setAttribute("class", "accExpand");
+			expandImg.setAttribute("src", "./../icons/drop_down.png");
+			expandImg.setAttribute("class", "icon");
 
-			accDelete.textContent = "Delete";
-			accDelete.setAttribute("class", "accDelete");
+			accExpand.setAttribute("class", "btn btn-link accExpand");
+			accExpand.appendChild(expandImg);
+
+			delImg.setAttribute("src", "./../icons/delete.png");
+			delImg.setAttribute("class", "icon");
+
+			accDelete.setAttribute("class", "btn btn-link accDelete");
+			accDelete.appendChild(delImg);
 
 			accDiv.setAttribute("class", "accDiv");
 			accDiv.setAttribute("id", obj.id);
@@ -67,7 +80,7 @@ function createList(storeObj) {
 			currentTabs.appendChild(accDiv);
 			currentTabs.appendChild(panelDiv);
 		}
-	}
+	});
 	return currentTabs;
 }
 
@@ -118,7 +131,6 @@ export async function saveHandler(tabs) {
 		storeIt(tabs)
 			.then(() => {
 				retrieveIt().then(obj => {
-					console.log(obj);
 					let returnTab = createList(obj);
 					resolve(returnTab);
 				});

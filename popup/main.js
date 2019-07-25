@@ -39,7 +39,7 @@ let setupAccordion = () => {
 
 function updater() {
 	warehouse.updateHandler().then(data => {
-		let tabsList = document.getElementById("saved-list");
+		let tabsList = document.getElementById("saved-content");
 
 		tabsList.innerHTML = "";
 		if (data != undefined) {
@@ -61,7 +61,7 @@ function listenForClicks() {
 			// The saveIt() is called whenever a node with the class "save" is clicked
 			// saveIt() adds a new Accordion to the pop-up
 			var conditions = { currentWindow: true };
-			let tabsList = document.getElementById("saved-list");
+			let tabsList = document.getElementById("saved-content");
 
 			// conditions is used by the getCurrentWindowTabs() to access tabs only
 			// in the current window
@@ -91,7 +91,7 @@ function listenForClicks() {
 		function reset() {
 			console.log("Reseted");
 			browser.storage.local.clear();
-			document.getElementById("saved-list").innerHTML = "";
+			document.getElementById("saved-content").innerHTML = "";
 		}
 
 		function reportError(error) {
