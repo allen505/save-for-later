@@ -20,6 +20,7 @@ Here uncheck ***"Block pop-up windows"***
 If you are interested in contributing to this repository or if you wish to view the contents of this extension, here are some details:
 
 The file structure:
+
 **Save for later**
 
 ├── **icons**
@@ -46,12 +47,10 @@ The file structure:
 
 │   └── warehouse.js
 
-├── README
-
-└── saveLater.js
+└── README
 
 
- - icons folder contains the assets used by the extension
- - main.css, html, js are the files which are used to display the content of the popup.
- - main.js generally deals with the appearance, and event handling parts of the popup
- - warehouse.js, as the name suggests deals with storing and retrieving of data. This is the data which is stored in the browser's local storage to ensure persisting data.
+ - **icons** folder contains the assets used by the extension
+ - **main.css, html, js** are the files which are used to display the content of the popup.
+ - **main.js** generally deals with the appearance, and event handling parts of the popup
+ - **warehouse.js**, as the name suggests deals with storing and retrieving of data. This is the data which is stored in the browser's local storage to ensure persisting data.
