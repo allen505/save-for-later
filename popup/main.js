@@ -31,13 +31,14 @@ let setupAccordion = () => {
 		accDel[i].addEventListener("click", () => {
 			let delElement = parent.getAttribute("id");
 			warehouse.deleteHandler(delElement).then(() => {
+				console.log(delElement)
 				updater();
 			});
 		});
 	}
 };
 
-function updater() {
+export function updater() {
 	warehouse.updateHandler().then(data => {
 		let tabsList = document.getElementById("saved-content");
 

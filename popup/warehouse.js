@@ -1,6 +1,8 @@
 // warehouse.js is where all data handling related work happens
 // such as creating the Accordion, storing the data to storage, etc
 
+import * as mainjs from "./main.js";
+
 let pattern = /^(http|https|file):\/\//;
 // The pattern helps catch only http/https/file links excluding any about/ftp/ws/wss links
 
@@ -40,16 +42,17 @@ function createList(storeObj) {
 			accButton.textContent = obj.title;
 			accButton.setAttribute("class", "btn btn-link accButton");
 			accButton.addEventListener("click", () => {
-				console.log(obj.tabs);
+				let windowObj = new Object();
+				let urlArray = new Array();
 				for (let tab of obj.tabs) {
-					try {
-						window.open(tab.url, '_blank');
-						console.log("Opened");
-						console.log(tab.url);
-					} catch (error) {
-						console.log(error);
-					}
+					urlArray.push(tab.url.toString());
 				}
+				console.log(urlArray);
+				windowObj.url = urlArray;
+				browser.windows.create(windowObj)
+				deleteHandler(obj.id.toString()).then(() => {
+					mainjs.updater();
+				});
 			});
 
 			expandImg.setAttribute("src", "./../icons/drop_down.png");
@@ -99,8 +102,8 @@ async function storeIt(tabs) {
 	// stores it into the storage.local
 
 	// dataToStore is the object which contains data of the window which is going to be saved
-	
-	let time= new Date;
+
+	let time = new Date();
 	var id = time.getTime();
 	let tabArray = new Array();
 
@@ -113,8 +116,17 @@ async function storeIt(tabs) {
 			tabArray.push(newTab);
 		}
 	}
-	let title = time.getDate()+"/"+(time.getMonth()+1)+" "+time.getHours()+":"+time.getMinutes()+" | "+tabArray.length+" tabs";
-	console.log(title)
+	let title =
+		time.getDate() +
+		"/" +
+		(time.getMonth() + 1) +
+		" " +
+		time.getHours() +
+		":" +
+		time.getMinutes() +
+		" | " +
+		tabArray.length +
+		" tabs";
 	let tags = null;
 
 	var dataToStore = new storageObject(id, title, tabArray, tags);

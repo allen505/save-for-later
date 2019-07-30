@@ -7,14 +7,7 @@ Want to know what each of the permissions required by the extension are for?
  - **tabs** permission is needed to access the details of the tabs which are open in the current window.
  - **storage** permission is needed to store the details of the tabs so that the data persists even after a restart of Firefox
 
-#### Popup blocking by Firefox
-   Firefox by default blocks add-ons from opening multiple tabs, hence to enjoy the best experience of this extension please disable the popup blocker in Firefox from:
-   
 
-**Preferences** -> **Privacy and Security** -> **Permissions**
-
-Here uncheck ***"Block pop-up windows"***
-		 
 ## Contributing
 
 If you are interested in contributing to this repository or if you wish to view the contents of this extension, here are some details:
