@@ -22,19 +22,33 @@ If you are interested in contributing to this repository or if you wish to view 
 The file structure:
 **Save for later**
 ├── **icons**
+
 │   ├── delete.png
+
 │   ├── drop_down.png
+
 │   └── main.png
+
 ├── LICENSE.txt
+
 ├── manifest.json
+
 ├── **popup**
+
 │   ├── bootstrap.min.css
+
 │   ├── main.css
+
 │   ├── main.html
+
 │   ├── main.js
+
 │   └── warehouse.js
+
 ├── README
+
 └── saveLater.js
+
 
  - icons folder contains the assets used by the extension
  - main.css, html, js are the files which are used to display the content of the popup.
