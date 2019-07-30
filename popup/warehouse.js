@@ -37,8 +37,20 @@ function createList(storeObj) {
 			let delImg = document.createElement("img");
 			let accDelete = document.createElement("button");
 
-			accButton.textContent = obj.id;
+			accButton.textContent = obj.title;
 			accButton.setAttribute("class", "btn btn-link accButton");
+			accButton.addEventListener("click", () => {
+				console.log(obj.tabs);
+				for (let tab of obj.tabs) {
+					try {
+						window.open(tab.url, '_blank');
+						console.log("Opened");
+						console.log(tab.url);
+					} catch (error) {
+						console.log(error);
+					}
+				}
+			});
 
 			expandImg.setAttribute("src", "./../icons/drop_down.png");
 			expandImg.setAttribute("class", "icon");
@@ -64,18 +76,16 @@ function createList(storeObj) {
 
 			// The for loop is run to go through each tab present in the current window
 			for (let tab of obj.tabs) {
-				if (tab.url.match(pattern) != null) {
-					// Create the li tag into which the link is inserted
-					let listItem = document.createElement("li");
+				// Create the li tag into which the link is inserted
+				let listItem = document.createElement("li");
 
-					// Create a link for each tab which is saved and set its respective parameters
-					let tabLink = document.createElement("a");
-					tabLink.textContent = tab.textContent;
-					tabLink.setAttribute("href", tab.url);
+				// Create a link for each tab which is saved and set its respective parameters
+				let tabLink = document.createElement("a");
+				tabLink.textContent = tab.textContent;
+				tabLink.setAttribute("href", tab.url);
 
-					listItem.appendChild(tabLink);
-					panelDiv.appendChild(listItem);
-				}
+				listItem.appendChild(tabLink);
+				panelDiv.appendChild(listItem);
 			}
 			currentTabs.appendChild(accDiv);
 			currentTabs.appendChild(panelDiv);
@@ -89,9 +99,9 @@ async function storeIt(tabs) {
 	// stores it into the storage.local
 
 	// dataToStore is the object which contains data of the window which is going to be saved
-	var id = Date.now();
-
-	let title = "";
+	
+	let time= new Date;
+	var id = time.getTime();
 	let tabArray = new Array();
 
 	for (let tab of tabs) {
@@ -103,6 +113,8 @@ async function storeIt(tabs) {
 			tabArray.push(newTab);
 		}
 	}
+	let title = time.getDate()+"/"+(time.getMonth()+1)+" "+time.getHours()+":"+time.getMinutes()+" | "+tabArray.length+" tabs";
+	console.log(title)
 	let tags = null;
 
 	var dataToStore = new storageObject(id, title, tabArray, tags);

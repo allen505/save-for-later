@@ -9,7 +9,7 @@
 		"48": "icons/main.png"
 	},
 
-	"permissions": ["tabs", "activeTab", "storage"],
+	"permissions": ["tabs", "storage"],
 
 	"browser_action": {
 		"default_icon": "icons/main.png",
