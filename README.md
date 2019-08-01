@@ -1,4 +1,4 @@
-# Save for Later (Firefox)
+# Save for Later
    This web extension is build using the Webextension APIs and is used to save the tabs in the current window for later use. 
 
 ## Permissions
@@ -16,31 +16,62 @@ The file structure:
 
 **Save for later**
 
-├── **icons**
+├── icons
 
-│   ├── delete.png
+│   ├── delete.png
 
-│   ├── drop_down.png
+│   ├── drop_down.png
 
-│   └── main.png
+│   ├── header.png
 
-├── LICENSE.txt
+│   ├── main-128.png
+
+│   ├── main-36.png
+
+│   ├── main-48.png
+
+│   ├── main-64.png
+
+│   └── main-96.png
+
+├── LICENSE
 
 ├── manifest.json
 
-├── **popup**
+├── node_modules
 
-│   ├── bootstrap.min.css
+│   └── webextension-polyfill
 
-│   ├── main.css
+│       ├── dist
 
-│   ├── main.html
+│       │   ├── browser-polyfill.js
 
-│   ├── main.js
+│       │   ├── browser-polyfill.js.map
 
-│   └── warehouse.js
+│       │   ├── browser-polyfill.min.js
 
-└── README
+│       │   └── browser-polyfill.min.js.map
+
+│       ├── LICENSE
+
+│       ├── package.json
+
+│       └── README.md
+
+├── popup
+
+│   ├── bootstrap.min.css
+
+│   ├── main.css
+
+│   ├── main.html
+
+│   ├── main.js
+
+│   └── warehouse.js
+
+└── README.md
+
 
 
  - **icons** folder contains the assets used by the extension
