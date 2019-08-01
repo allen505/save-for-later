@@ -31,7 +31,6 @@ let setupAccordion = () => {
 		accDel[i].addEventListener("click", () => {
 			let delElement = parent.getAttribute("id");
 			warehouse.deleteHandler(delElement).then(() => {
-				console.log(delElement)
 				updater();
 			});
 		});
@@ -90,7 +89,6 @@ function listenForClicks() {
 		}
 
 		function reset() {
-			console.log("Reseted");
 			browser.storage.local.clear();
 			document.getElementById("saved-content").innerHTML = "";
 		}

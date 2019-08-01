@@ -11,6 +11,7 @@ class storageObject {
 		this.id = id;
 		this.title = title;
 		this.tabs = tabs;
+		this.pinned=false;
 		this.tags = tags;
 	}
 }
@@ -47,7 +48,6 @@ function createList(storeObj) {
 				for (let tab of obj.tabs) {
 					urlArray.push(tab.url.toString());
 				}
-				console.log(urlArray);
 				windowObj.url = urlArray;
 				browser.windows.create(windowObj)
 				deleteHandler(obj.id.toString()).then(() => {
