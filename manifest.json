@@ -6,13 +6,17 @@
 	"description": "Saves all tabs in the window to be used for later",
 
 	"icons": {
-		"48": "icons/main.png"
+		"36": "icons/main-36.png",
+		"48": "icons/main-48.png",
+		"64": "icons/main-64.png",
+		"96": "icons/main-96.png",
+		"128": "icons/main-128.png"
 	},
 
 	"permissions": ["tabs", "storage"],
 
 	"browser_action": {
-		"default_icon": "icons/main.png",
+		"default_icon": "icons/main-64.png",
 		"default_title": "Save for later",
 		"default_popup": "popup/main.html",
 		"browser_style": true
