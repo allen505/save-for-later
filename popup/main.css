@@ -60,6 +60,7 @@ body {
 .panel {
 	padding: 7px 18px;
 	background-color: white;
+	text-align: left;
 	display: none;
 	overflow: hidden;
 	/* background-color: rgb(209, 0, 0); */
