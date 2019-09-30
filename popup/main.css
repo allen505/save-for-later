@@ -7,7 +7,7 @@ body {
 
 #header{
 	padding-bottom: 15px;
-
+	background-image: linear-gradient(#D3D3D3,#ffffff)
 }
 
 .hidden {

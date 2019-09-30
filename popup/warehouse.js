@@ -50,9 +50,9 @@ function createList(storeObj) {
 				}
 				windowObj.url = urlArray;
 				browser.windows.create(windowObj)
-				deleteHandler(obj.id.toString()).then(() => {
-					mainjs.updater();
-				});
+				// deleteHandler(obj.id.toString()).then(() => {
+				// 	mainjs.updater();
+				// });
 			});
 
 			expandImg.setAttribute("src", "./../icons/drop_down.png");
@@ -171,6 +171,7 @@ export async function updateHandler() {
 	// updateHandler syncs the data in storage.local with data displayed
 	// in the popup
 
+	// counter()
 	let returnPromise = new Promise((resolve, reject) => {
 		retrieveIt()
 			.then(obj => {

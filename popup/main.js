@@ -43,6 +43,8 @@ export function updater() {
 
 		tabsList.innerHTML = "";
 		if (data != undefined) {
+			
+			console.log(data)
 			tabsList.appendChild(data);
 			setupAccordion();
 		}
