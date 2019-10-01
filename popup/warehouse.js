@@ -83,9 +83,19 @@ function createList(storeObj) {
 				let listItem = document.createElement("li");
 
 				// Create a link for each tab which is saved and set its respective parameters
-				let tabLink = document.createElement("a");
-				tabLink.textContent = tab.textContent;
-				tabLink.setAttribute("href", tab.url);
+				let tabLink = document.createElement("button");
+				let cutoffLength=38;
+
+				if (tab.textContent.length >= cutoffLength)
+					tabLink.textContent =
+						tab.textContent.slice(0, cutoffLength) + "...";
+				else tabLink.textContent = tab.textContent;
+				tabLink.setAttribute("class", "btn btn-link accButton");
+				listItem.addEventListener("click", () => {
+					browser.tabs.create({
+						url:tab.url
+					})
+				})
 
 				listItem.appendChild(tabLink);
 				panelDiv.appendChild(listItem);
