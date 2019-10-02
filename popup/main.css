@@ -34,13 +34,13 @@ body {
 }
 
 .save{
-	box-shadow: 0 4px 8px 0 rgba(40, 167, 69, 0.23), 0 6px 20px 0 rgba(40, 167, 69, 0.20);
+	box-shadow: 0 4px 8px 0 rgba(40, 167, 69, 0.21), 0 6px 20px 0 rgba(40, 167, 69, 0.20);
 }
 .save:hover{
 	box-shadow: 0 0px 0px 0 rgba(40, 167, 69, 0.0);
 }
 .reset{
-	box-shadow: 0 4px 8px 0 rgba(220, 53, 69, 0.23), 0 6px 20px 0 rgba(220, 53, 69, 0.20);
+	box-shadow: 0 4px 8px 0 rgba(220, 53, 69, 0.21), 0 6px 20px 0 rgba(220, 53, 69, 0.20);
 }
 .reset:hover{
 	box-shadow: 0 0px 0px 0 rgba(220, 53, 69, 0.0);
