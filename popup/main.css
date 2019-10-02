@@ -51,8 +51,8 @@ body {
 	border: none;
 	outline: none;
 	transition: 0.4s;
-	border-radius: 4px;
-	margin: 3px 2px 0px;
+	border-radius: 5px;
+	margin: 4px 3px 0px;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -70,12 +70,10 @@ body {
 	padding: 7px 18px;
 	background-color: #F5F5F5;
 
-	border-style: solid;
-	border-width: 0px 2px 2px 2px;
 	border-color: #C0C0C0;
-	border-radius: 0px 0px 4px 4px;
+	border-radius: 0px 0px 5px 5px;
 
-	margin: 0px 2px;
+	margin: 0px 3px;
 
 	text-align: left;
 	display: none;
