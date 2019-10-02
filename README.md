@@ -45,7 +45,7 @@ The file structure:
 |   |-- [ 891]  main.html
 |   |-- [3.8K]  main.js
 |   `-- [5.7K]  warehouse.js
-`-- [2.0K]  README.md
+`-- [2.3K]  README.md
 
 
  - **icons** folder contains the assets used by the extension.
