@@ -61,9 +61,9 @@ function createList(storeObj) {
 			accExpand.setAttribute("class", "btn btn-link accExpand");
 			accExpand.appendChild(expandImg);
 
-			delImg.setAttribute("src", "./../icons/delete.png");
+			delImg.setAttribute("src", "./../icons/delete.svg");
 			delImg.setAttribute("class", "icon");
-
+			
 			accDelete.setAttribute("class", "btn btn-link accDelete");
 			accDelete.appendChild(delImg);
 
@@ -84,7 +84,7 @@ function createList(storeObj) {
 
 				// Create a link for each tab which is saved and set its respective parameters
 				let tabLink = document.createElement("button");
-				let cutoffLength=38;
+				let cutoffLength=30;
 
 				if (tab.textContent.length >= cutoffLength)
 					tabLink.textContent =

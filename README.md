@@ -16,65 +16,42 @@ The file structure:
 
 **Save for later**
 
-├── icons
-
-│   ├── delete.png
-
-│   ├── drop_down.png
-
-│   ├── header.png
-
-│   ├── main-128.png
-
-│   ├── main-36.png
-
-│   ├── main-48.png
-
-│   ├── main-64.png
-
-│   └── main-96.png
-
-├── LICENSE
-
-├── manifest.json
-
-├── node_modules
-
-│   └── webextension-polyfill
-
-│       ├── dist
-
-│       │   ├── browser-polyfill.js
-
-│       │   ├── browser-polyfill.js.map
-
-│       │   ├── browser-polyfill.min.js
-
-│       │   └── browser-polyfill.min.js.map
-
-│       ├── LICENSE
-
-│       ├── package.json
-
-│       └── README.md
-
-├── popup
-
-│   ├── bootstrap.min.css
-
-│   ├── main.css
-
-│   ├── main.html
-
-│   ├── main.js
-
-│   └── warehouse.js
-
-└── README.md
+|-- [ 674]  background-script.js
+|-- [702K]  Fonts
+|   `-- [698K]  liberation-sans
+|       |-- [347K]  LiberationSans-Italic.ttf
+|       |-- [342K]  LiberationSans-Regular.ttf
+|       `-- [4.4K]  SIL Open Font License.txt
+|-- [ 57K]  icons
+|   |-- [ 448]  delete.svg
+|   |-- [ 472]  drop_down.png
+|   |-- [3.5K]  header.png
+|   |-- [ 38K]  heart.gif
+|   |-- [4.7K]  main-128.png
+|   |-- [ 734]  main-36.png
+|   |-- [ 958]  main-48.png
+|   |-- [1.5K]  main-64.png
+|   `-- [2.7K]  main-96.png
+|-- [ 34K]  LICENSE
+|-- [ 632]  manifest.json
+|-- [ 69K]  node_modules
+|   `-- [ 65K]  webextension-polyfill
+|       `-- [ 61K]  dist
+|           |-- [9.8K]  browser-polyfill.min.js
+|           `-- [ 47K]  browser-polyfill.min.js.map
+|-- [168K]  popup
+|   |-- [152K]  bootstrap.min.css
+|   |-- [1.6K]  main.css
+|   |-- [ 891]  main.html
+|   |-- [3.8K]  main.js
+|   `-- [5.7K]  warehouse.js
+`-- [2.0K]  README.md
 
 
-
- - **icons** folder contains the assets used by the extension
+ - **icons** folder contains the assets used by the extension.
  - **main.css, html, js** are the files which are used to display the content of the popup.
- - **main.js** generally deals with the appearance, and event handling parts of the popup
+ - **main.js** generally deals with the appearance, and event handling parts of the popup.
  - **warehouse.js**, as the name suggests deals with storing and retrieving of data. This is the data which is stored in the browser's local storage to ensure persisting data.
+ - **background-script.js** is used to count the number of saves and display the same in the badge.
+ - **Fonts** This folder contains all the fonts required by the extension which is Liberation Sans, a free and open source font.
+ - **webextension-polyfill** contains the polyfill provided by Mozilla to enable the extension on Chrome and Chrome based devices.

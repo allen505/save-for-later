@@ -1,6 +1,15 @@
 import * as warehouse from "./warehouse.js";
 let prevSession = {};
 
+window.onload = () => {
+	document.getElementById("donateImg").addEventListener("click", () => {
+		browser.tabs.create({
+			url: "https://allen505.github.io/save-for-later/contribute"
+		});
+	});
+	
+};
+
 let setupAccordion = () => {
 	// setupAccordion() helps initialize all the Accordions in the  HTML document. Must be called every time
 	// a new accordion is made
@@ -43,8 +52,7 @@ export function updater() {
 
 		tabsList.innerHTML = "";
 		if (data != undefined) {
-			
-			console.log(data)
+			console.log(data);
 			tabsList.appendChild(data);
 			setupAccordion();
 		}

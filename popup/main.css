@@ -1,8 +1,13 @@
+@font-face{
+	font-family: Liberation;
+	src: url(../Fonts/liberation-sans/LiberationSans-Regular.ttf);
+}
+
 html,
 body {
 	width: 375px;
 	height: 415px;
-
+	font-family: Liberation;
 }
 
 #header{
@@ -26,6 +31,19 @@ body {
 .save,
 .reset {
 	width: 85%;
+}
+
+.save{
+	box-shadow: 0 4px 8px 0 rgba(40, 167, 69, 0.23), 0 6px 20px 0 rgba(40, 167, 69, 0.20);
+}
+.save:hover{
+	box-shadow: 0 0px 0px 0 rgba(40, 167, 69, 0.0);
+}
+.reset{
+	box-shadow: 0 4px 8px 0 rgba(220, 53, 69, 0.23), 0 6px 20px 0 rgba(220, 53, 69, 0.20);
+}
+.reset:hover{
+	box-shadow: 0 0px 0px 0 rgba(220, 53, 69, 0.0);
 }
 #popup-content{
 	text-align: center;
@@ -63,6 +81,15 @@ body {
 .icon{
 	width: 27px;
 	height: 27px;
+}
+
+.popupIcon{
+	width: 24px;
+	height: 24px;
+}
+
+#donateImg{
+	cursor: pointer;
 }
 
 /* Style the accordion panel. Note: hidden by default */

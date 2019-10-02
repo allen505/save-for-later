@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Save for later",
-	"version": "0.5",
+	"version": "1.0",
 
 	"description": "Saves all tabs in the window to be used for later",
 
