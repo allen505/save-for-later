@@ -17,34 +17,63 @@ The file structure:
 **Save for later**
 
 |-- [ 674]  background-script.js
+
 |-- [702K]  Fonts
+
 |   `-- [698K]  liberation-sans
+
 |       |-- [347K]  LiberationSans-Italic.ttf
+
 |       |-- [342K]  LiberationSans-Regular.ttf
+
 |       `-- [4.4K]  SIL Open Font License.txt
+
 |-- [ 57K]  icons
+
 |   |-- [ 448]  delete.svg
+
 |   |-- [ 472]  drop_down.png
+
 |   |-- [3.5K]  header.png
+
 |   |-- [ 38K]  heart.gif
+
 |   |-- [4.7K]  main-128.png
+
 |   |-- [ 734]  main-36.png
+
 |   |-- [ 958]  main-48.png
+
 |   |-- [1.5K]  main-64.png
+
 |   `-- [2.7K]  main-96.png
+
 |-- [ 34K]  LICENSE
+
 |-- [ 632]  manifest.json
+
 |-- [ 69K]  node_modules
+
 |   `-- [ 65K]  webextension-polyfill
+
 |       `-- [ 61K]  dist
+
 |           |-- [9.8K]  browser-polyfill.min.js
+
 |           `-- [ 47K]  browser-polyfill.min.js.map
+
 |-- [168K]  popup
+
 |   |-- [152K]  bootstrap.min.css
+
 |   |-- [1.6K]  main.css
+
 |   |-- [ 891]  main.html
+
 |   |-- [3.8K]  main.js
+
 |   `-- [5.7K]  warehouse.js
+
 `-- [2.3K]  README.md
 
 
