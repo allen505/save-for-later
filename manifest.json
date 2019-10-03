@@ -3,7 +3,7 @@
 	"name": "Save for later",
 	"version": "1.0",
 
-	"description": "Saves all tabs in the window to be used for later",
+	"description": "Save tabs in window to be used later",
 
 	"icons": {
 		"36": "icons/main-36.png",
