@@ -24,5 +24,7 @@
 		"default_title": "Save for later",
 		"default_popup": "popup/main.html",
 		"browser_style": true
-	}
+	},
+	
+	"offline_enabled": true
 }
