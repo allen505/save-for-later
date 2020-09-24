@@ -20,21 +20,35 @@ There are two background scripts that run to ensure working of the extension.
 
 ## Development setup
 
-Clone this repository to your local machine using
+1. You'll need to make changes on your on version of the code. For this you need to fork this repo. Learn more about forking [here](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo#fork-an-example-repository)
+2. Then you need to clone this forked repository to your local machine. Run the following command on a terminal  
+`git clone <YOUR_GITHUB_REPO_URL>.git`
+Learn more about cloning [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line)
+3. Next we need to Temporarily install the extension on the browser of your choice. Follow these instructions to do so:
 
-`git clone https://github.com/allen505/save-for-later.git`
+   *Note: The extension's directory is the folder which contains the `manifest.json` file*
 
-### Temporarily install the extension on the browser of your choice by following these instructions:
+- For Firefox browser follow [this guide](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
 
-*The extension's directory is the folder which contains the `manifest.json` file*
+- For Chrome/Chromium based browsers:  
+  1. Open the Extension Management page by navigating to `chrome://extensions`.
+     - The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
+  2. Enable Developer Mode by clicking the toggle switch next to Developer mode.
+  3. Click the LOAD UNPACKED button and select the extension's directory.
+     
+     [Image for Steps 2 and 3](https://developer.chrome.com/static/images/get_started/load_extension.png)
 
-For Firefox browser follow [this guide](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
-
-For Chromium based browsers:
-
-1. Open the Extension Management page by navigating to `chrome://extensions`.
-   - The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
-2. Enable Developer Mode by clicking the toggle switch next to Developer mode.
-3. Click the LOAD UNPACKED button and select the extension's directory.
-   
-   [Image for Steps 2 and 3](https://developer.chrome.com/static/images/get_started/load_extension.png)
+## Tips for development
+- For Firefox (Credits: @emecas)
+  - [web-ext](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/) is a useful command line tool when developing extensions. Importantly, it automatically reloads the extension on changes to source files
+  - You can inspect an extension just like you would any webpage. To do this:
+     1. Open the Add-ons Manager `Ctr+Shift+A`:
+     2. Under the gear icon, click on `Debug Add-ons`
+     3. Click inspect to inspect any extension
+     4. You can use the **Console** to `console.log()` values to debug and analyse running of the extension
+     5. Use the *Extension Storage* Under the **Storage** tab to view data stored by the Extension
+- For Chrome/Chromium based browsers
+  - You can inspect an extension just like you would any webpage. To do this:
+    1. Open an extension to Inspect
+    2. Right click on the extension's Popup area
+    3. Click on Inspect. This open the dev tools for the given extension
