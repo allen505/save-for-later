@@ -2,13 +2,13 @@ import * as warehouse from "./warehouse.js";
 let prevSession = {};
 
 let setupAccordion = () => {
-    // setupAccordion() helps initialize all the Accordions in the  HTML document. Must be called every time
-    // a new accordion is made
-    let acc = document.getElementsByClassName("accExpand");
-    let i;
-    // This for-loop is setup so that it runs for all the accordion class nodes found in the HTML document
-    for (i = 0; i < acc.length; i++) {
-        let parent = acc[i].parentElement;
+	// setupAccordion() helps initialize all the Accordions in the  HTML document. Must be called every time
+	// a new accordion is made
+	let acc = document.getElementsByClassName("accExpand");
+	let i;
+	// This for-loop is setup so that it runs for all the accordion class nodes found in the HTML document
+	for (i = 0; i < acc.length; i++) {
+		let parent = acc[i].parentElement.parentElement;
 
         acc[i].addEventListener("click", function() {
             // Toggle between adding and removing the "active" class,
@@ -25,16 +25,16 @@ let setupAccordion = () => {
         });
     }
 
-    let accDel = document.getElementsByClassName("accDelete");
-    for (i = 0; i < accDel.length; i++) {
-        let parent = accDel[i].parentElement;
-        accDel[i].addEventListener("click", () => {
-            let delElement = parent.getAttribute("id");
-            warehouse.deleteHandler(delElement).then(() => {
-                updater();
-            });
-        });
-    }
+	let accDel = document.getElementsByClassName("accDelete");
+	for (i = 0; i < accDel.length; i++) {
+		let parent = accDel[i].parentElement.parentElement;
+		accDel[i].addEventListener("click", () => {
+			let delElement = parent.getAttribute("id");
+			warehouse.deleteHandler(delElement).then(() => {
+				updater();
+			});
+		});
+	}
 };
 
 export function updater() {

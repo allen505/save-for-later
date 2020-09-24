@@ -47,49 +47,91 @@ function createList(storeObj) {
             // Create the accordion button and set the values of the button
             let obj = storeObj[id];
 
-            let accDiv = document.createElement("div");
-            let accButton = document.createElement("button");
-            let expandImg = document.createElement("img");
-            let accExpand = document.createElement("button");
-            let delImg = document.createElement("img");
-            let accDelete = document.createElement("button");
+			let accDiv = document.createElement("div");
+			let butDiv = document.createElement("div");
+			let accButton = document.createElement("button");
+			let expandImg = document.createElement("img");
+			let accExpand = document.createElement("button");
+			let opeImg = document.createElement("img");
+			let accOpen = document.createElement("button");
+			let delImg = document.createElement("img");
+			let accDelete = document.createElement("button");
+			accButton.textContent = obj.title;
+			accButton.setAttribute("class", "btn btn-link accButton");
+			accButton.setAttribute("contentEditable", "true");
 
-            accButton.textContent = obj.title;
-            accButton.setAttribute("class", "btn btn-link accButton");
-            accButton.addEventListener("click", () => {
-                let windowObj = new Object();
-                let urlArray = new Array();
-                for (let tab of obj.tabs) {
-                    urlArray.push(tab.url.toString());
-                }
-                windowObj.url = urlArray;
-                browser.windows.create(windowObj)
-                    // deleteHandler(obj.id.toString()).then(() => {
-                    // 	mainjs.updater();
-                    // });
-            });
+			accOpen.addEventListener("click", () => {
+				let windowObj = new Object();
+				let urlArray = new Array();
+				for (let tab of obj.tabs) {
+					urlArray.push(tab.url.toString());
+				}
+				windowObj.url = urlArray;
+				browser.windows.create(windowObj)
+				// deleteHandler(obj.id.toString()).then(() => {
+				// 	mainjs.updater();
+				// });
+			});
 
-            expandImg.setAttribute("src", "./../icons/drop_down.png");
-            expandImg.setAttribute("class", "icon");
+			accButton.addEventListener("keydown" , event => {
+				if (accButton.textContent.length > 30) {
+					accButton.textContent = accButton.textContent.substring(0, 30);
+				} else {
+					if (accButton.textContent.length === 0) {
+						accButton.textContent =  obj.title;
+					}
+				}
+			});
 
-            accExpand.setAttribute("class", "btn btn-link accExpand");
-            accExpand.appendChild(expandImg);
+			accButton.addEventListener("focusout", () => {
+				if(obj.title != accButton.textContent){
+					obj.title = accButton.textContent;
 
-            delImg.setAttribute("src", "./../icons/delete.svg");
-            delImg.setAttribute("class", "icon");
+					persist(id, obj.title, obj.tabs, obj.tags);
+	
+				}
+			});
 
-            accDelete.setAttribute("class", "btn btn-link accDelete");
-            accDelete.appendChild(delImg);
+			expandImg.setAttribute("src", "./../icons/drop_down.png");
+			expandImg.setAttribute("class", "icon");
 
-            accDiv.setAttribute("class", "accDiv");
-            accDiv.setAttribute("id", obj.id);
+      accExpand.setAttribute("class", "btn btn-link accExpand");
+      accExpand.appendChild(expandImg);
 
-            let panelDiv = document.createElement("div");
-            panelDiv.setAttribute("class", "panel");
+			opeImg.setAttribute("src", "./../icons/open.png");
+			opeImg.setAttribute("class", "icon");
 
-            accDiv.appendChild(accButton);
-            accDiv.appendChild(accExpand);
-            accDiv.appendChild(accDelete);
+			accOpen.setAttribute("class", "btn btn-link accOpen");
+			accOpen.appendChild(opeImg);
+
+			delImg.setAttribute("src", "./../icons/delete.svg");
+			delImg.setAttribute("class", "icon");
+			
+			accDelete.setAttribute("class", "btn btn-link accDelete");
+			accDelete.appendChild(delImg);
+
+			butDiv.setAttribute("class", "butDiv")
+
+			accDiv.setAttribute("class", "accDiv");
+			accDiv.setAttribute("id", obj.id);
+
+      accDiv.setAttribute("class", "accDiv");
+      accDiv.setAttribute("id", obj.id);
+
+      let panelDiv = document.createElement("div");
+      panelDiv.setAttribute("class", "panel");
+			
+      accDiv.appendChild(accButton);
+
+			butDiv.appendChild(accOpen);
+			butDiv.appendChild(accExpand);
+			butDiv.appendChild(accDelete);
+
+			accDiv.appendChild(butDiv);
+
+            // accDiv.appendChild(accButton);
+            // accDiv.appendChild(accExpand);
+            // accDiv.appendChild(accDelete);
 
             // The for loop is run to go through each tab present in the current window
             for (let tab of obj.tabs) {
@@ -116,7 +158,7 @@ function createList(storeObj) {
             }
             currentTabs.appendChild(accDiv);
             currentTabs.appendChild(panelDiv);
-        }
+      }
     });
     return currentTabs;
 }
@@ -157,18 +199,22 @@ async function storeIt(tabs) {
         " tabs";
     let tags = null;
 
-    var dataToStore = new storageObject(id, title, tabArray, tags);
-    var obj = {};
-    obj[id] = dataToStore;
+	persist(id, title, tabArray, tags);
 
-    browser.storage.local
-        .set(obj)
-        .then(() => {})
-        .catch(error => {
-            console.warn("Storage error occured: " + error);
-        });
+}
 
-    // });
+function persist(id, title, tabArray, tags) {
+	var dataToStore = new storageObject(id, title, tabArray, tags);
+	var obj = {};
+	obj[id] = dataToStore;
+
+	browser.storage.local
+		.set(obj)
+		.then(() => { })
+		.catch(error => {
+			console.warn("Storage error occured: " + error);
+		});
+// >>>>>>> 90724fe (Implement Editable Title)
 }
 
 function retrieveIt() {
