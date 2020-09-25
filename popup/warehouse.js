@@ -34,15 +34,19 @@ function createList(storeObj) {
 			let obj = storeObj[id];
 
 			let accDiv = document.createElement("div");
+			let butDiv = document.createElement("div");
 			let accButton = document.createElement("button");
 			let expandImg = document.createElement("img");
 			let accExpand = document.createElement("button");
+			let openImg = document.createElement("img");
+			let accOpen = document.createElement("button");
 			let delImg = document.createElement("img");
 			let accDelete = document.createElement("button");
-
 			accButton.textContent = obj.title;
 			accButton.setAttribute("class", "btn btn-link accButton");
-			accButton.addEventListener("click", () => {
+			accButton.setAttribute("contentEditable", "true");
+
+			accOpen.addEventListener("click", () => {
 				let windowObj = new Object();
 				let urlArray = new Array();
 				for (let tab of obj.tabs) {
@@ -55,17 +59,55 @@ function createList(storeObj) {
 				// });
 			});
 
+			accButton.addEventListener("keydown" , event => {
+				if (accButton.textContent.length >= 29) {
+					accButton.textContent = accButton.textContent.substring(0, 29);
+				} else {
+					if (accButton.textContent.trim().length === 0) {
+						accButton.textContent =  obj.title;
+					}
+				}
+				
+				// console.log(event.code);
+
+				// if(event.code === "Enter" ){
+				// 	console.log("->" + event.code);
+
+				// 	const escape = 27
+				// 	const escape_event = new KeyboardEvent('keydown',{'keyCode':escape})
+				// 	document.dispatchEvent(escape_event)
+
+				// }
+			});
+
+			['pointerleave', 'focusout'].forEach( function(e) {
+				accButton.addEventListener(e, () => {
+					if(obj.title != accButton.textContent){
+						obj.title = accButton.textContent;
+						persist(id, obj.title, obj.tabs, obj.tags);
+					}
+				});
+			});
+
 			expandImg.setAttribute("src", "./../icons/drop_down.png");
 			expandImg.setAttribute("class", "icon");
 
 			accExpand.setAttribute("class", "btn btn-link accExpand");
 			accExpand.appendChild(expandImg);
 
+			openImg.setAttribute("src", "./../icons/open.png");
+			openImg.setAttribute("class", "icon");
+
+			accOpen.setAttribute("class", "btn btn-link accOpen");
+			accOpen.appendChild(openImg);
+
 			delImg.setAttribute("src", "./../icons/delete.svg");
 			delImg.setAttribute("class", "icon");
 			
 			accDelete.setAttribute("class", "btn btn-link accDelete");
 			accDelete.appendChild(delImg);
+
+			butDiv.setAttribute("class", "butDiv")
 
 			accDiv.setAttribute("class", "accDiv");
 			accDiv.setAttribute("id", obj.id);
@@ -74,8 +116,12 @@ function createList(storeObj) {
 			panelDiv.setAttribute("class", "panel");
 
 			accDiv.appendChild(accButton);
-			accDiv.appendChild(accExpand);
-			accDiv.appendChild(accDelete);
+
+			butDiv.appendChild(accOpen);
+			butDiv.appendChild(accExpand);
+			butDiv.appendChild(accDelete);
+
+			accDiv.appendChild(butDiv);
 
 			// The for loop is run to go through each tab present in the current window
 			for (let tab of obj.tabs) {
@@ -139,18 +185,22 @@ async function storeIt(tabs) {
 		" tabs";
 	let tags = null;
 
+	persist(id, title, tabArray, tags);
+
+	// });
+}
+
+function persist(id, title, tabArray, tags) {
 	var dataToStore = new storageObject(id, title, tabArray, tags);
 	var obj = {};
 	obj[id] = dataToStore;
 
 	browser.storage.local
 		.set(obj)
-		.then(() => {})
+		.then(() => { })
 		.catch(error => {
 			console.log("Storage error occured: " + error);
 		});
-
-	// });
 }
 
 function retrieveIt() {

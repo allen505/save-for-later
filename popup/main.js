@@ -17,7 +17,7 @@ let setupAccordion = () => {
 	let i;
 	// This for-loop is setup so that it runs for all the accordion class nodes found in the HTML document
 	for (i = 0; i < acc.length; i++) {
-		let parent = acc[i].parentElement;
+		let parent = acc[i].parentElement.parentElement;
 
 		acc[i].addEventListener("click", function() {
 			// Toggle between adding and removing the "active" class,
@@ -36,7 +36,7 @@ let setupAccordion = () => {
 
 	let accDel = document.getElementsByClassName("accDelete");
 	for (i = 0; i < accDel.length; i++) {
-		let parent = accDel[i].parentElement;
+		let parent = accDel[i].parentElement.parentElement;
 		accDel[i].addEventListener("click", () => {
 			let delElement = parent.getAttribute("id");
 			warehouse.deleteHandler(delElement).then(() => {
