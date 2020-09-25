@@ -52,7 +52,7 @@ function createList(storeObj) {
 			let accButton = document.createElement("button");
 			let expandImg = document.createElement("img");
 			let accExpand = document.createElement("button");
-			let opeImg = document.createElement("img");
+			let openImg = document.createElement("img");
 			let accOpen = document.createElement("button");
 			let delImg = document.createElement("img");
 			let accDelete = document.createElement("button");
@@ -74,22 +74,33 @@ function createList(storeObj) {
 			});
 
 			accButton.addEventListener("keydown" , event => {
-				if (accButton.textContent.length > 30) {
-					accButton.textContent = accButton.textContent.substring(0, 30);
+				if (accButton.textContent.length >= 29) {
+					accButton.textContent = accButton.textContent.substring(0, 29);
 				} else {
-					if (accButton.textContent.length === 0) {
+					if (accButton.textContent.trim().length === 0) {
 						accButton.textContent =  obj.title;
 					}
 				}
+				
+				// console.log(event.code);
+
+				// if(event.code === "Enter" ){
+				// 	console.log("->" + event.code);
+
+				// 	const escape = 27
+				// 	const escape_event = new KeyboardEvent('keydown',{'keyCode':escape})
+				// 	document.dispatchEvent(escape_event)
+
+				// }
 			});
 
-			accButton.addEventListener("focusout", () => {
-				if(obj.title != accButton.textContent){
-					obj.title = accButton.textContent;
-
-					persist(id, obj.title, obj.tabs, obj.tags);
-	
-				}
+			['pointerleave', 'focusout'].forEach( function(e) {
+				accButton.addEventListener(e, () => {
+					if(obj.title != accButton.textContent){
+						obj.title = accButton.textContent;
+						persist(id, obj.title, obj.tabs, obj.tags);
+					}
+				});
 			});
 
 			expandImg.setAttribute("src", "./../icons/drop_down.png");
@@ -98,11 +109,11 @@ function createList(storeObj) {
       accExpand.setAttribute("class", "btn btn-link accExpand");
       accExpand.appendChild(expandImg);
 
-			opeImg.setAttribute("src", "./../icons/open.png");
-			opeImg.setAttribute("class", "icon");
+			openImg.setAttribute("src", "./../icons/open.png");
+			openImg.setAttribute("class", "icon");
 
 			accOpen.setAttribute("class", "btn btn-link accOpen");
-			accOpen.appendChild(opeImg);
+			accOpen.appendChild(openImg);
 
 			delImg.setAttribute("src", "./../icons/delete.svg");
 			delImg.setAttribute("class", "icon");
