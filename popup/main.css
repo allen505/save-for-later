@@ -93,9 +93,6 @@ body {
   height: 24px;
 }
 
-#donateImg {
-  cursor: pointer;
-}
 
 /* Style the accordion panel. Note: hidden by default */
 .panel {
