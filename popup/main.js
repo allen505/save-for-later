@@ -97,25 +97,19 @@ function listenForClicks() {
             }
         }
 
-        function reset() {
-            browser.storage.local.clear();
-            document.getElementById("saved-content").innerHTML = "";
-        }
-
         function reportError(error) {
             console.error(`An error occured: ${error}`);
         }
 
-        if (e.target.classList.contains("save")) {
+        if (e.target.id == "saveBtn") {
             browser.tabs
                 .query({ active: true, currentWindow: true })
                 .then(saveIt)
                 .catch(reportError);
-        } else if (e.target.classList.contains("reset")) {
-            browser.tabs
-                .query({ active: true, currentWindow: true })
-                .then(reset)
-                .catch(reportError);
+        } else if (e.target.id == "donateBtn") {
+            browser.tabs.create({
+            url: "https://allen505.github.io/save-for-later/contribute"
+        });
         }
     });
 }
