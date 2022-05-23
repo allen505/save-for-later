@@ -1,108 +1,115 @@
-@font-face{
-	font-family: Liberation;
-	src: url(../Fonts/liberation-sans/LiberationSans-Regular.ttf);
+@font-face {
+  font-family: Liberation;
+  src: url(../Fonts/liberation-sans/LiberationSans-Regular.ttf);
 }
 
 html,
 body {
-	width: 375px;
-	height: 415px;
-	font-family: Liberation;
+  width: 375px;
+  height: 415px;
+  font-family: Liberation;
 }
 
-#header{
-	padding-bottom: 15px;
-	background-image: linear-gradient(#D3D3D3,#ffffff)
+#header {
+  padding-bottom: 15px;
+  background-image: linear-gradient(#D3D3D3, #ffffff);
+}
+
+#headerImg {
+  display: block;
+  margin: auto;
 }
 
 .hidden {
-	display: none;
+  display: none;
 }
 
 .button {
-	margin: 2.5% auto;
-	padding: 2px;
-	text-align: center;
-	font-size: 1.5em;
-	cursor: pointer;
-	
-}
-
-.save,
-.reset {
-	width: 85%;
-}
-
-.save{
-	box-shadow: 0 4px 8px 0 rgba(40, 167, 69, 0.21), 0 6px 20px 0 rgba(40, 167, 69, 0.20);
-}
-.save:hover{
-	box-shadow: 0 0px 0px 0 rgba(40, 167, 69, 0.0);
-}
-.reset{
-	box-shadow: 0 4px 8px 0 rgba(220, 53, 69, 0.21), 0 6px 20px 0 rgba(220, 53, 69, 0.20);
-}
-.reset:hover{
-	box-shadow: 0 0px 0px 0 rgba(220, 53, 69, 0.0);
-}
-#popup-content{
-	text-align: center;
-	width: auto;
+  margin: 2.5% auto;
+  padding: 2px;
+  text-align: center;
+  font-size: 1.5em;
+  cursor: pointer;
 
 }
-#saved-content{
-	padding: 3px;
-	width: auto;
-	text-align: center;
+
+#saveBtn,
+#donateBtn {
+  width: 85%;
 }
 
-.accDelete{
-	float: right;
+#saveBtn {
+  box-shadow: 0 4px 8px 0 rgba(40, 167, 69, 0.21), 0 6px 20px 0 rgba(40, 167, 69, 0.20);
+}
+
+#saveBtn:hover {
+  box-shadow: 0 0px 0px 0 rgba(40, 167, 69, 0.0);
+}
+
+#donateBtn {
+  box-shadow: 0 4px 8px 0 rgba(0, 123, 255, 0.21), 0 6px 20px 0 rgba(0, 123, 255, 0.20);
+}
+
+#donateBtn:hover {
+  box-shadow: 0 0px 0px 0 rgba(0, 123, 255, 0.0);
+}
+
+#popup-content {
+  text-align: center;
+  width: auto;
+
+}
+
+#saved-content {
+  padding: 3px;
+  width: auto;
+  text-align: center;
+}
+
+.accDelete {
+  float: right;
 }
 
 .accDiv {
-	background-color: #E5E4E2;
-	color: #444;
-	padding: 10px 3px;
-	width: auto;
-	text-align: left;
-	border: none;
-	outline: none;
-	transition: 0.4s;
-	border-radius: 5px;
-	margin: 4px 3px 0px;
+  background-color: #E5E4E2;
+  color: #444;
+  padding: 10px 3px;
+  width: auto;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  border-radius: 5px;
+  margin: 4px 3px 0px;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .accDiv:hover {
-	background-color: #C0C0C0;
+  background-color: #C0C0C0;
 }
 
-.icon{
-	width: 27px;
-	height: 27px;
+.icon {
+  width: 27px;
+  height: 27px;
 }
 
-.popupIcon{
-	width: 24px;
-	height: 24px;
+.popupIcon {
+  width: 24px;
+  height: 24px;
 }
 
-#donateImg{
-	cursor: pointer;
-}
 
 /* Style the accordion panel. Note: hidden by default */
 .panel {
-	padding: 7px 18px;
-	background-color: #F5F5F5;
+  padding: 7px 18px;
+  background-color: #F5F5F5;
 
-	border-color: #C0C0C0;
-	border-radius: 0px 0px 5px 5px;
+  border-color: #C0C0C0;
+  border-radius: 0px 0px 5px 5px;
 
-	margin: 0px 3px;
+  margin: 0px 3px;
 
-	text-align: left;
-	display: none;
-	overflow: hidden;
+  text-align: left;
+  display: none;
+  overflow: hidden;
 }
