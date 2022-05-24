@@ -82,6 +82,18 @@ body {
 	float: center;
 }
 
+.butDiv{
+	float: right;
+}
+
+.accOpen{
+	float: left;
+}
+
+.accExpand{
+	float: center;
+}
+
 .accDelete{
 	float: right;
 }

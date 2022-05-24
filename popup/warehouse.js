@@ -115,6 +115,12 @@ function createList(storeObj) {
 			accOpen.setAttribute("class", "btn btn-link accOpen");
 			accOpen.appendChild(openImg);
 
+			openImg.setAttribute("src", "./../icons/open.png");
+			openImg.setAttribute("class", "icon");
+
+			accOpen.setAttribute("class", "btn btn-link accOpen");
+			accOpen.appendChild(openImg);
+
 			delImg.setAttribute("src", "./../icons/delete.svg");
 			delImg.setAttribute("class", "icon");
 			
@@ -225,7 +231,6 @@ function persist(id, title, tabArray, tags) {
 		.catch(error => {
 			console.warn("Storage error occured: " + error);
 		});
-// >>>>>>> 90724fe (Implement Editable Title)
 }
 
 function retrieveIt() {
