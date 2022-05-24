@@ -70,6 +70,34 @@ body {
   float: right;
 }
 
+.butDiv{
+	float: right;
+}
+
+.accOpen{
+	float: left;
+}
+
+.accExpand{
+	float: center;
+}
+
+.butDiv{
+	float: right;
+}
+
+.accOpen{
+	float: left;
+}
+
+.accExpand{
+	float: center;
+}
+
+.accDelete{
+	float: right;
+}
+
 .accDiv {
   background-color: #E5E4E2;
   color: #444;
