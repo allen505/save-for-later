@@ -66,9 +66,12 @@ function createList(storeObj) {
           urlArray.push(tab.url.toString());
         }
 
+        let inIncognito = false
         browser.windows.getLastFocused().then((windowInfo) => {
+          inIncognito = windowInfo.incognito;
+        }).finally(() => {
           browser.windows.create({
-            incognito: windowInfo.incognito,
+            incognito: inIncognito,
             url: urlArray,
           })
         });
