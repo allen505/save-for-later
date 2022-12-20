@@ -61,13 +61,17 @@ function createList(storeObj) {
       accButton.setAttribute("contentEditable", "true");
 
       accOpen.addEventListener("click", () => {
-        let windowObj = new Object();
         let urlArray = new Array();
         for (let tab of obj.tabs) {
           urlArray.push(tab.url.toString());
         }
-        windowObj.url = urlArray;
-        browser.windows.create(windowObj)
+
+        browser.windows.getLastFocused().then((windowInfo) => {
+          browser.windows.create({
+            incognito: windowInfo.incognito,
+            url: urlArray,
+          })
+        });
         // deleteHandler(obj.id.toString()).then(() => {
         // mainjs.updater();
         // });
