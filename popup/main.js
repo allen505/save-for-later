@@ -84,7 +84,7 @@ function listenForClicks() {
       });
 
       function getCurrentWindowTabs() {
-        return browser.tabs.query(conditions);
+        return chrome.tabs.query(conditions);
       }
     }
 
@@ -93,12 +93,12 @@ function listenForClicks() {
     }
 
     if (e.target.id == "saveBtn") {
-      browser.tabs
+      chrome.tabs
         .query({ active: true, currentWindow: true })
         .then(saveIt)
         .catch(reportError);
     } else if (e.target.id == "donateBtn") {
-      browser.tabs.create({
+      chrome.tabs.create({
         url: "https://allen505.github.io/save-for-later/contribute"
       });
     }
