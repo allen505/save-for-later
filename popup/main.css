@@ -70,32 +70,32 @@ body {
   float: right;
 }
 
-.butDiv{
-	float: right;
+.actionsDiv {
+  float: right;
 }
 
-.accOpen{
-	float: left;
+.accEdit {
+  float: left;
 }
 
-.accExpand{
-	float: center;
+.accExpand {
+  float: center;
 }
 
-.butDiv{
-	float: right;
+.actionsDiv {
+  float: right;
 }
 
-.accOpen{
-	float: left;
+.accEdit {
+  float: left;
 }
 
-.accExpand{
-	float: center;
+.accExpand {
+  float: center;
 }
 
-.accDelete{
-	float: right;
+.accDelete {
+  float: right;
 }
 
 .accDiv {
@@ -119,6 +119,7 @@ body {
 .icon {
   width: 27px;
   height: 27px;
+  margin: 0;
 }
 
 .popupIcon {
