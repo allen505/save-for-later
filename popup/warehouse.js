@@ -64,13 +64,20 @@ function createList(storeObj) {
 
       openButton.addEventListener("click", () => {
         if (saveTitle.contentEditable === 'false') {
-          let windowObj = new Object();
           let urlArray = new Array();
           for (let tab of obj.tabs) {
             urlArray.push(tab.url.toString());
           }
-          windowObj.url = urlArray;
-          browser.windows.create(windowObj)
+
+          let inIncognito = false
+          browser.windows.getLastFocused().then((windowInfo) => {
+            inIncognito = windowInfo.incognito;
+          }).finally(() => {
+            browser.windows.create({
+              incognito: inIncognito,
+              url: urlArray,
+            })
+          });
         }
       });
 
