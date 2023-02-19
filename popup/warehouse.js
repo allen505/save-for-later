@@ -5,6 +5,11 @@
 let pattern = /^(http|https|file):\/\//;
 // The pattern helps catch only http/https/file links excluding any about/ftp/ws/wss links
 
+var colorscheme = {
+  selectedArea : "#9e9e9e",
+  textInSelecedArea : "#000000",
+}
+
 class storageObject {
   constructor(id, title, tabs, tags) {
     this.id = id;
@@ -59,7 +64,9 @@ function createList(storeObj) {
 
       saveTitle.textContent = obj.title;
       saveTitle.setAttribute("contentEditable", "false");
-      openButton.setAttribute("class", "btn btn-link openButton");
+      saveTitle.setAttribute("class", "titleText");
+
+      openButton.setAttribute("class", "btn btn-link openBtn");
       openButton.appendChild(saveTitle);
 
       openButton.addEventListener("click", () => {
@@ -95,7 +102,8 @@ function createList(storeObj) {
       accEdit.addEventListener("click", () => {
         if (saveTitle.contentEditable === 'false') {
           saveTitle.contentEditable = 'true';
-          saveTitle.style.backgroundColor = 'darkgrey';
+          saveTitle.style.backgroundColor = colorscheme.selectedArea;
+          saveTitle.style.color = colorscheme.textInSelecedArea;
           saveTitle.focus();
         } else {
           handleTitleUpdate(obj, saveTitle)
@@ -105,19 +113,19 @@ function createList(storeObj) {
       expandImg.setAttribute("src", "./../icons/drop_down.png");
       expandImg.setAttribute("class", "icon");
 
-      accExpand.setAttribute("class", "btn btn-link accExpand");
+      accExpand.setAttribute("class", "btn btn-link iconBtn accExpand");
       accExpand.appendChild(expandImg);
 
       editImg.setAttribute("src", "./../icons/edit.png");
       editImg.setAttribute("class", "icon");
 
-      accEdit.setAttribute("class", "btn btn-link accEdit");
+      accEdit.setAttribute("class", "btn btn-link iconBtn accEdit");
       accEdit.appendChild(editImg);
 
       delImg.setAttribute("src", "./../icons/delete.svg");
       delImg.setAttribute("class", "icon");
 
-      accDelete.setAttribute("class", "btn btn-link accDelete");
+      accDelete.setAttribute("class", "btn btn-link iconBtn accDelete");
       accDelete.appendChild(delImg);
 
       actionsDiv.setAttribute("class", "actionsDiv")
@@ -149,7 +157,7 @@ function createList(storeObj) {
           tabLink.textContent =
             tab.textContent.slice(0, cutoffLength) + "...";
         else tabLink.textContent = tab.textContent;
-        tabLink.setAttribute("class", "btn btn-link openButton");
+        tabLink.setAttribute("class", "btn btn-link tabLinkBtn");
         listItem.addEventListener("click", () => {
           browser.tabs.create({
             url: tab.url
@@ -169,6 +177,7 @@ function createList(storeObj) {
 function handleTitleUpdate(obj, titleSpan) {
   titleSpan.contentEditable = 'false';
   titleSpan.style.backgroundColor = '';
+  titleSpan.style.color = '';
   validateAndUpdateTitle(obj, titleSpan.textContent);
 }
 

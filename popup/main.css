@@ -66,24 +66,28 @@ body {
   text-align: center;
 }
 
-.accDelete {
-  float: right;
-}
-
-.actionsDiv {
-  float: right;
-}
-
-.accEdit {
+.titleText{
+  padding: 7px;
+  text-align: left;
   float: left;
+  flex-grow: 1;
 }
 
-.accExpand {
-  float: center;
+.iconBtn {
+  margin: 5px;
+  padding: 5px;
+  flex-grow: 1;
+}
+
+.iconBtn:hover{
+  background-color: #9e9e9e;
 }
 
 .actionsDiv {
   float: right;
+  margin: 0px;
+  margin-left: auto;
+  padding: 2px;
 }
 
 .accEdit {
@@ -109,9 +113,10 @@ body {
   transition: 0.4s;
   border-radius: 5px;
   margin: 4px 3px 0px;
+  display: flex;
+  align-items: center;
 }
 
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .accDiv:hover {
   background-color: #C0C0C0;
 }
@@ -120,12 +125,21 @@ body {
   width: 27px;
   height: 27px;
   margin: 0;
+  padding: 0;
 }
 
 .popupIcon {
   width: 24px;
   height: 24px;
 }
+
+.openBtn {
+  word-wrap: break-word;
+  margin: 0px 5px;
+  padding: 0.3rem;
+  max-width: 190px;
+}
+
 
 
 /* Style the accordion panel. Note: hidden by default */
