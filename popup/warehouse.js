@@ -5,10 +5,12 @@
 let pattern = /^(http|https|file):\/\//;
 // The pattern helps catch only http/https/file links excluding any about/ftp/ws/wss links
 
-var colorscheme = {
-  selectedArea : "#9e9e9e",
-  textInSelecedArea : "#000000",
+const colorscheme = {
+  selectedArea: "#9e9e9e",
+  textInSelecedArea: "#000000",
 }
+
+const newTabUrls = ["about:newtab", "about:blank", "chrome://newtab/"]
 
 class storageObject {
   constructor(id, title, tabs, tags) {
@@ -71,20 +73,7 @@ function createList(storeObj) {
 
       openButton.addEventListener("click", () => {
         if (saveTitle.contentEditable === 'false') {
-          let urlArray = new Array();
-          for (let tab of obj.tabs) {
-            urlArray.push(tab.url.toString());
-          }
-
-          let inIncognito = false
-          browser.windows.getLastFocused().then((windowInfo) => {
-            inIncognito = windowInfo.incognito;
-          }).finally(() => {
-            browser.windows.create({
-              incognito: inIncognito,
-              url: urlArray,
-            })
-          });
+          validateAndOpenSave(obj)
         }
       });
 
@@ -194,6 +183,51 @@ function santizeTitleName(titleText) {
     return titleText.substring(0, maxTitleLength);
   }
   return titleText.trim()
+}
+
+export function getCurrentWindowTabs() {
+  return browser.tabs.query({ currentWindow: true });
+}
+
+function openSave(urlArray, isIncognito, currentTabs) {
+  if (currentTabs.length == 1 && newTabUrls.includes(currentTabs[0].url)) {
+    const tabIdOfNewTab = currentTabs[0].id
+    for (let url of urlArray) {
+      browser.tabs.create({
+        url: url
+      })
+      browser.tabs.remove(tabIdOfNewTab)
+        .catch((e) => {
+          console.warn("Error when deleting newTab: ", e)
+        })
+    }
+  }
+  else {
+    browser.windows.create({
+      incognito: isIncognito,
+      url: urlArray,
+    })
+  }
+}
+
+function validateAndOpenSave(obj) {
+  let urlArray = new Array();
+  for (let tab of obj.tabs) {
+    urlArray.push(tab.url.toString());
+  }
+  let isIncognito = false
+  browser.windows.getLastFocused()
+    .then((windowInfo) => {
+      isIncognito = windowInfo.incognito
+    })
+    .finally(() => {
+      getCurrentWindowTabs()
+        .then(tabs => { openSave(urlArray, isIncognito, tabs) })
+        .catch((e) => {
+          console.warn("Error when opening Save = ", e)
+          openSave(urlArray, false, [])
+        })
+    });
 }
 
 async function storeIt(tabs) {
