@@ -197,6 +197,9 @@ function openSave(urlArray, isIncognito, currentTabs) {
         url: url
       })
       browser.tabs.remove(tabIdOfNewTab)
+        .catch((e) => {
+          console.warn("Error when deleting newTab: ", e)
+        })
     }
   }
   else {
