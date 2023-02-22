@@ -82,6 +82,10 @@ function createList(storeObj) {
           event.preventDefault();
           handleTitleUpdate(obj, saveTitle)
         }
+        if (event.key === ' ') {
+          event.preventDefault();
+          insertTextAtCaret(' ');
+        }
       })
 
       saveTitle.addEventListener('focusout', () => {
@@ -178,7 +182,7 @@ function validateAndUpdateTitle(obj, newTitleText) {
 }
 
 function santizeTitleName(titleText) {
-  const maxTitleLength = 29
+  const maxTitleLength = 40
   if (titleText.length >= maxTitleLength) {
     return titleText.substring(0, maxTitleLength);
   }
@@ -228,6 +232,18 @@ function validateAndOpenSave(obj) {
           openSave(urlArray, false, [])
         })
     });
+}
+
+// Reference: https://stackoverflow.com/a/75505941/4688365
+function insertTextAtCaret(text) {
+  var sel, range;
+  sel = window.getSelection();
+  if (sel && sel.getRangeAt && sel.rangeCount) {
+    range = sel.getRangeAt(0);
+    range.deleteContents();
+    range.insertNode(document.createTextNode(text));
+    range.collapse();
+  }
 }
 
 async function storeIt(tabs) {
