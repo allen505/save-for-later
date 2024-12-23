@@ -50,42 +50,21 @@ export function updater() {
 }
 
 function listenForClicks() {
-  // The listenForClicks() is called as soon as HTML page is loaded
   updater();
 
-  // Adding an eventListener so that whenever a click is registered within the pop-up,
-  // the respective condition is called using the if statements written at the end
-  // of the below function
   document.addEventListener("click", e => {
     function saveIt() {
-      // The saveIt() is called whenever a node with the class "save" is clicked
-      // saveIt() adds a new Accordion to the pop-up
       var conditions = { currentWindow: true };
       let tabsList = document.getElementById("saved-content");
 
-      // conditions is used by the getCurrentWindowTabs() to access tabs only
-      // in the current window
-      // tabsList is used to access the div in which the Accordion is to be added
-      // currentTabs is used to store the Accordion which will be added to the pop-up
-
-      getCurrentWindowTabs().then(tabs => {
-        // getCurrentWindowTabs() is defined below and helps access the tabs which
-        // are present in the given window
-
-        tabsList.textContent = "";
-        // createList() is called to generate the code for Accordion
-        warehouse.saveHandler(tabs).then(data => {
-          tabsList.appendChild(data);
-          setupAccordion();
+      warehouse.getCurrentWindowTabs()
+        .then(tabs => {
+          tabsList.textContent = "";
+          warehouse.saveHandler(tabs).then(data => {
+            tabsList.appendChild(data);
+            setupAccordion();
+          });
         });
-
-        // currentTabs is updated by the createList() and setupAccordion is called
-        // to initialize the newly added Accordion
-      });
-
-      function getCurrentWindowTabs() {
-        return chrome.tabs.query(conditions);
-      }
     }
 
     function reportError(error) {

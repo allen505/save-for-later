@@ -8,18 +8,20 @@ async function setBadge() {
     counter().then(obj => {
       let numberOfSaves = Object.keys(obj).length;
       if (numberOfSaves == 0) {
-        chrome.action.setBadgeBackgroundColor({
-          color: "#393939"
+        // chrome.action.setBadgeBackgroundColor({
+        //   color: "#393939"
+        // });
+        chrome.action.setBadgeText({
+          text: ""
         });
       } else {
         chrome.action.setBadgeBackgroundColor({
-          color: "#FF0E46"
+          color: "#c5e7ff"
         });
-      }
-
-      chrome.action.setBadgeText({
-        text: numberOfSaves.toString()
-      });
+        chrome.action.setBadgeText({
+          text: numberOfSaves.toString()
+        });
+      }   
     });
     await sleep(500);
   }

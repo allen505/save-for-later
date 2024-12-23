@@ -1,10 +1,16 @@
 // warehouse.js is where all data handling related work happens
 // such as creating the Accordion, storing the data to storage, etc
 
-import * as mainjs from "./main.js";
 
 let pattern = /^(http|https|file):\/\//;
 // The pattern helps catch only http/https/file links excluding any about/ftp/ws/wss links
+
+const colorscheme = {
+  selectedArea: "#9e9e9e",
+  textInSelecedArea: "#000000",
+}
+
+const newTabUrls = ["about:newtab", "about:blank", "chrome://newtab/"]
 
 class storageObject {
   constructor(id, title, tabs, tags) {
@@ -48,22 +54,26 @@ function createList(storeObj) {
       let obj = storeObj[id];
 
       let accDiv = document.createElement("div");
-      let butDiv = document.createElement("div");
-      let accButton = document.createElement("button");
+      let actionsDiv = document.createElement("div");
+      let openButton = document.createElement("button");
+      let saveTitle = document.createElement("span");
       let expandImg = document.createElement("img");
       let accExpand = document.createElement("button");
-      let openImg = document.createElement("img");
-      let accOpen = document.createElement("button");
+      let editImg = document.createElement("img");
+      let accEdit = document.createElement("button");
       let delImg = document.createElement("img");
       let accDelete = document.createElement("button");
-      accButton.textContent = obj.title;
-      accButton.setAttribute("class", "btn btn-link accButton");
-      accButton.setAttribute("contentEditable", "true");
 
-      accOpen.addEventListener("click", () => {
-        let urlArray = new Array();
-        for (let tab of obj.tabs) {
-          urlArray.push(tab.url.toString());
+      saveTitle.textContent = obj.title;
+      saveTitle.setAttribute("contentEditable", "false");
+      saveTitle.setAttribute("class", "titleText");
+
+      openButton.setAttribute("class", "btn btn-link openBtn");
+      openButton.appendChild(saveTitle);
+
+      openButton.addEventListener("click", () => {
+        if (saveTitle.contentEditable === 'false') {
+          validateAndOpenSave(obj)
         }
 
         let inIncognito = false
@@ -80,64 +90,51 @@ function createList(storeObj) {
         // });
       });
 
-      accButton.addEventListener("keydown", event => {
-        if (accButton.textContent.length >= 29) {
-          accButton.textContent = accButton.textContent.substring(0, 29);
-        } else {
-          if (accButton.textContent.trim().length === 0) {
-            accButton.textContent = obj.title;
-          }
+      saveTitle.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          handleTitleUpdate(obj, saveTitle)
         }
+        if (event.key === ' ') {
+          event.preventDefault();
+          insertTextAtCaret(' ');
+        }
+      })
 
-        // console.log(event.code);
-
-        // if(event.code === "Enter" ){
-        //   console.log("->" + event.code);
-
-        //   const escape = 27
-        //   const escape_event = new KeyboardEvent('keydown',{'keyCode':escape})
-        //   document.dispatchEvent(escape_event)
-
-        // }
+      saveTitle.addEventListener('focusout', () => {
+        handleTitleUpdate(obj, saveTitle)
       });
 
-      ['pointerleave', 'focusout'].forEach(function (e) {
-        accButton.addEventListener(e, () => {
-          if (obj.title != accButton.textContent) {
-            obj.title = accButton.textContent;
-            persist(id, obj.title, obj.tabs, obj.tags);
-          }
-        });
+      accEdit.addEventListener("click", () => {
+        if (saveTitle.contentEditable === 'false') {
+          saveTitle.contentEditable = 'true';
+          saveTitle.style.backgroundColor = colorscheme.selectedArea;
+          saveTitle.style.color = colorscheme.textInSelecedArea;
+          saveTitle.focus();
+        } else {
+          handleTitleUpdate(obj, saveTitle)
+        }
       });
 
       expandImg.setAttribute("src", "./../icons/drop_down.png");
       expandImg.setAttribute("class", "icon");
 
-      accExpand.setAttribute("class", "btn btn-link accExpand");
+      accExpand.setAttribute("class", "btn btn-link iconBtn accExpand");
       accExpand.appendChild(expandImg);
 
-      openImg.setAttribute("src", "./../icons/open.png");
-      openImg.setAttribute("class", "icon");
+      editImg.setAttribute("src", "./../icons/edit.png");
+      editImg.setAttribute("class", "icon");
 
-      accOpen.setAttribute("class", "btn btn-link accOpen");
-      accOpen.appendChild(openImg);
-
-      openImg.setAttribute("src", "./../icons/open.png");
-      openImg.setAttribute("class", "icon");
-
-      accOpen.setAttribute("class", "btn btn-link accOpen");
-      accOpen.appendChild(openImg);
+      accEdit.setAttribute("class", "btn btn-link iconBtn accEdit");
+      accEdit.appendChild(editImg);
 
       delImg.setAttribute("src", "./../icons/delete.svg");
       delImg.setAttribute("class", "icon");
 
-      accDelete.setAttribute("class", "btn btn-link accDelete");
+      accDelete.setAttribute("class", "btn btn-link iconBtn accDelete");
       accDelete.appendChild(delImg);
 
-      butDiv.setAttribute("class", "butDiv")
-
-      accDiv.setAttribute("class", "accDiv");
-      accDiv.setAttribute("id", obj.id);
+      actionsDiv.setAttribute("class", "actionsDiv")
 
       accDiv.setAttribute("class", "accDiv");
       accDiv.setAttribute("id", obj.id);
@@ -145,17 +142,13 @@ function createList(storeObj) {
       let panelDiv = document.createElement("div");
       panelDiv.setAttribute("class", "panel");
 
-      accDiv.appendChild(accButton);
+      accDiv.appendChild(openButton);
 
-      butDiv.appendChild(accOpen);
-      butDiv.appendChild(accExpand);
-      butDiv.appendChild(accDelete);
+      actionsDiv.appendChild(accEdit);
+      actionsDiv.appendChild(accExpand);
+      actionsDiv.appendChild(accDelete);
 
-      accDiv.appendChild(butDiv);
-
-      // accDiv.appendChild(accButton);
-      // accDiv.appendChild(accExpand);
-      // accDiv.appendChild(accDelete);
+      accDiv.appendChild(actionsDiv);
 
       // The for loop is run to go through each tab present in the current window
       for (let tab of obj.tabs) {
@@ -170,7 +163,7 @@ function createList(storeObj) {
           tabLink.textContent =
             tab.textContent.slice(0, cutoffLength) + "...";
         else tabLink.textContent = tab.textContent;
-        tabLink.setAttribute("class", "btn btn-link accButton");
+        tabLink.setAttribute("class", "btn btn-link tabLinkBtn");
         listItem.addEventListener("click", () => {
           chrome.tabs.create({
             url: tab.url
@@ -185,6 +178,85 @@ function createList(storeObj) {
     }
   });
   return currentTabs;
+}
+
+function handleTitleUpdate(obj, titleSpan) {
+  titleSpan.contentEditable = 'false';
+  titleSpan.style.backgroundColor = '';
+  titleSpan.style.color = '';
+  validateAndUpdateTitle(obj, titleSpan.textContent);
+}
+
+function validateAndUpdateTitle(obj, newTitleText) {
+  var santizedText = santizeTitleName(newTitleText)
+  if (obj.title != santizedText && santizedText.length != 0) {
+    persist(obj.id, santizedText, obj.tabs, obj.tags);
+  }
+}
+
+function santizeTitleName(titleText) {
+  const maxTitleLength = 40
+  if (titleText.length >= maxTitleLength) {
+    return titleText.substring(0, maxTitleLength);
+  }
+  return titleText.trim()
+}
+
+export function getCurrentWindowTabs() {
+  return browser.tabs.query({ currentWindow: true });
+}
+
+function openSave(urlArray, isIncognito, currentTabs) {
+  if (currentTabs.length == 1 && newTabUrls.includes(currentTabs[0].url)) {
+    const tabIdOfNewTab = currentTabs[0].id
+    for (let url of urlArray) {
+      browser.tabs.create({
+        url: url
+      })
+      browser.tabs.remove(tabIdOfNewTab)
+        .catch((e) => {
+          console.warn("Error when deleting newTab: ", e)
+        })
+    }
+  }
+  else {
+    browser.windows.create({
+      incognito: isIncognito,
+      url: urlArray,
+    })
+  }
+}
+
+function validateAndOpenSave(obj) {
+  let urlArray = new Array();
+  for (let tab of obj.tabs) {
+    urlArray.push(tab.url.toString());
+  }
+  let isIncognito = false
+  browser.windows.getLastFocused()
+    .then((windowInfo) => {
+      isIncognito = windowInfo.incognito
+    })
+    .finally(() => {
+      getCurrentWindowTabs()
+        .then(tabs => { openSave(urlArray, isIncognito, tabs) })
+        .catch((e) => {
+          console.warn("Error when opening Save = ", e)
+          openSave(urlArray, false, [])
+        })
+    });
+}
+
+// Reference: https://stackoverflow.com/a/75505941/4688365
+function insertTextAtCaret(text) {
+  var sel, range;
+  sel = window.getSelection();
+  if (sel && sel.getRangeAt && sel.rangeCount) {
+    range = sel.getRangeAt(0);
+    range.deleteContents();
+    range.insertNode(document.createTextNode(text));
+    range.collapse();
+  }
 }
 
 async function storeIt(tabs) {
