@@ -75,6 +75,19 @@ function createList(storeObj) {
         if (saveTitle.contentEditable === 'false') {
           validateAndOpenSave(obj)
         }
+
+        let inIncognito = false
+        chrome.windows.getLastFocused().then((windowInfo) => {
+          inIncognito = windowInfo.incognito;
+        }).finally(() => {
+          chrome.windows.create({
+            incognito: inIncognito,
+            url: urlArray,
+          })
+        });
+        // deleteHandler(obj.id.toString()).then(() => {
+        // mainjs.updater();
+        // });
       });
 
       saveTitle.addEventListener('keydown', (event) => {
@@ -152,7 +165,7 @@ function createList(storeObj) {
         else tabLink.textContent = tab.textContent;
         tabLink.setAttribute("class", "btn btn-link tabLinkBtn");
         listItem.addEventListener("click", () => {
-          browser.tabs.create({
+          chrome.tabs.create({
             url: tab.url
           })
         })
@@ -291,7 +304,7 @@ function persist(id, title, tabArray, tags) {
   var obj = {};
   obj[id] = dataToStore;
 
-  browser.storage.local
+  chrome.storage.local
     .set(obj)
     .then(() => { })
     .catch(error => {
@@ -301,7 +314,7 @@ function persist(id, title, tabArray, tags) {
 
 function retrieveIt() {
   // This function retrieves data from the storage.local and returns a Promise
-  return browser.storage.local.get(null);
+  return chrome.storage.local.get(null);
 }
 
 export async function saveHandler(tabs) {
@@ -348,7 +361,7 @@ export async function updateHandler() {
 
 export async function deleteHandler(key) {
   let returnPromise = new Promise((resolve, reject) => {
-    let returnValue = browser.storage.local.remove(key);
+    let returnValue = chrome.storage.local.remove(key);
     if (returnValue === undefined) {
       reject("Error occured while deleting");
     } else {
