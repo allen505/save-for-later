@@ -76,18 +76,6 @@ function createList(storeObj) {
           validateAndOpenSave(obj)
         }
 
-        let inIncognito = false
-        chrome.windows.getLastFocused().then((windowInfo) => {
-          inIncognito = windowInfo.incognito;
-        }).finally(() => {
-          chrome.windows.create({
-            incognito: inIncognito,
-            url: urlArray,
-          })
-        });
-        // deleteHandler(obj.id.toString()).then(() => {
-        // mainjs.updater();
-        // });
       });
 
       saveTitle.addEventListener('keydown', (event) => {
